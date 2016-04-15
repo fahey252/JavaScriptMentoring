@@ -11,6 +11,11 @@ $ npm install
 ```
 
 ```
+$ npm install gulp -g
+```
+
+```
 $ gulp serve
 ```
+
 Will launch a browser with your changes.
