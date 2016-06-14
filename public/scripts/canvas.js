@@ -1,9 +1,54 @@
 (function drawToTheCanvas () {
 	"use strict";
 
-	var canvas = document.getElementById("canvas"),
-		context = canvas.getContext("2d");
+	var mixboard = window.document.getElementById("mix-board"),
+		mentoring = {
+		getKeys: function () {
+			var keyWidth = 100,
+				keyHeight = 100,
+				keyColor = "tomato",
+				keys = [],
+				numberOfKeys = 3,
+				currentKeyIndex = 0;
 
-	context.fillStyle = "green";
-	context.fillRect(10, 10, 100, 100);
+			while (currentKeyIndex < numberOfKeys) {
+				keys.push({
+					id: currentKeyIndex,
+					x: (currentKeyIndex * keyWidth) + 10,
+					y: 0,
+					width: keyWidth,
+					height: keyHeight,
+					backgroundColor: keyColor
+				});
+
+				currentKeyIndex++;
+			}
+
+			return keys;
+		},
+		drawKey: function (configs) {
+			var canvas = window.document.createElement("canvas"),
+				context = canvas.getContext("2d");
+
+			context.fillStyle = configs.backgroundColor;
+			context.fillRect(configs.x, configs.y, configs.width, configs.height);
+
+			canvas.style.width = configs.width + "px";
+
+			canvas.addEventListener("click", function () {
+				window.console.log("Key clicked with id: " + configs.id);
+			});
+
+			mixboard.appendChild(canvas);
+		},
+		drawMixboard: function () {
+			var keys = mentoring.getKeys();
+
+			keys.forEach(function (key) {
+				mentoring.drawKey(key);
+			});
+		}
+	};
+
+	mentoring.drawMixboard();
 }());
