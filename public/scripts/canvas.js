@@ -1,14 +1,13 @@
-(function drawToTheCanvas () {
+window.app = (function drawToTheCanvas () {
 	"use strict";
 
 	var mixboard = window.document.getElementById("mix-board"),
 		mentoring = {
-		getKeys: function () {
+		getKeys: function (numberOfKeys) {
 			var keyWidth = 100,
 				keyHeight = 100,
 				keyColor = "tomato",
 				keys = [],
-				numberOfKeys = 3,
 				currentKeyIndex = 0;
 
 			while (currentKeyIndex < numberOfKeys) {
@@ -41,14 +40,17 @@
 
 			mixboard.appendChild(canvas);
 		},
-		drawMixboard: function () {
-			var keys = mentoring.getKeys();
-
+		drawKeys: function (keys) {
 			keys.forEach(function (key) {
 				mentoring.drawKey(key);
 			});
+		},
+		drawMixboardWithNumberOfKeys: function (numberOfKeys) {
+			var keys = mentoring.getKeys(numberOfKeys);
+
+			mentoring.drawKeys(keys);
 		}
 	};
 
-	mentoring.drawMixboard();
+	return mentoring;
 }());
